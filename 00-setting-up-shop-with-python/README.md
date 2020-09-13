@@ -4,7 +4,7 @@
 ## Introduction
 We will be using Python 3. The easiest way to start for Python beginners is to download and install Anaconda from https://anaconda.com.
 
-The Anaconda packages will be installed under `home/ubuntu/anaconda3`.
+The Anaconda packages will be installed under `home/<username>/anaconda3`.
 
 Once installed, you can do:
 
@@ -49,3 +49,15 @@ Also, wanted to remove the `"(base)"` from the prompt, so I did: `conda config -
 A Jupyter Notebook is a graphical interface for coding in Python.
 
 To open the Jupyter Notebook interface type `python -m notebook`.
+
+## FAQs
+
+### 1. When I type `python --version` I get 2.x.y instead of 3.x.y, how do I fix this?
+Type `conda activate` to activate the Python version from the Conda distribution
+
+### 2. How do update the Anaconda distribution?
+Type `conda update conda`
+
+## Useful References
+
++ [Anaconda Individual Distribution User's Guide](https://conda.io/projects/conda/en/latest/user-guide/index.html)
