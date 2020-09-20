@@ -85,3 +85,99 @@ In terms of coordinates, subtraction can be defined as:
 ```
 v = (a, b), w = (c, d)
 v - w = (a - c, b - d)
+```
+
+The difference for the vectors is sometimes call the displacement from `v` to `w`.
+
+The distance between `v` and `w` is the length of the displacement vector.
+
+### Angles and Trigonometry in the Plane
+
+In the same way that we can use the x and y coordinates to uniquely characterize vectors in the plane, we can also characterize them by their length and the angle measured from the x axis.
+
+For example, we could say the vector of length 5 units, which points in the direction 37° counterclockwise from the positive half of the x-axis.
+`v=(5, 37°)`.
+
+These numbers are called the *polar coordinates* and are just as good as the `v=(4, 3)` coordinates we have used thus far, and that are known as *Cartesian coordinates*.
+
+| NOTE: |
+| :---- |
+| *Cartesian coordinates* are appropriate when we're dealing with addition, translation and displacement of vectors, while *polar coordinates* are more appropriate when we're dealing with distances and rotations of vectors. |
+
+Both coordinate systems are compatible and we can switch between one and the other using trigonometric functions.
+
+For a given angle, there is an interesting property on the cartesian coordinates of the points along the line defined by that angle: the ratio between the x and y coordinate stays the same along the line.
+
+For example:
++ for a 45° angle, the ratio `y/x` is 1 &mdash; for each x unit you go right, you go one y unit up
++ for a 116.57° angle, the ratio `y/x` is -2, &mdash; for each x unit you go left, you go 2 units up
++ for a 200° angle, the ratio `y/x` is 0.36 &mdash; for each x unit you go left, you go 0.36*x units down
+
+This ratio is called the *tangent* of the angle and is denoted as `tan(α)` with α being the angle. The tangent is related to the transformation from *polar* to *Cartesian* coordinates systems, as it gives us the vertical distance covered divided by the horizontal distance, but we need two other trigonometric functions: *sine* and *cosine*.
+
+The *sine* and *cosine* give us the vertical and horizontal distance covered relative to the overall distance.
+
+Let's take a look at the following schematic:
+![Schematic of distances and angles](./images/trigonometry_schematic.png)
+
+Then:
+```
+sin(angle)=(vertical/distance)
+cos(angle)=(horizontal/distance)
+tan(angle)=(vertical/horizontal)
+```
+
+Now we have all the necessary elements at hand to convert from *polar* to *Cartesian* coordinates:
+
+```
+v=(r, θ) = (r*cos(θ), r*sin(θ))
+```
+
+![Polar to Cartesian](./images/polar_to_cartesian.png)
+
+In general, calculators and computers do not use *degrees* as the default unit for angles, but use *radians* instead. The relationship between the two units is established through 𝜋:
+
+```
+𝜋 radians = 180°
+```
+
+That is, in radians, half a trip around a circle is an angle of 𝜋, and therefore, the whole revolution is 2*𝜋.
+
+With all this information we're in a good position to:
++ transform *degrees* to *radians* and *radians* to *degrees*
++ transform the *polar coordinates* of a vector into its *Cartesian* equivalent
+
+```python
+def to_cartesian(polar_vector):
+    length, angle = polar_vector[0], polar_vector[1] # this is like destructuring
+    return (length * cos(angle), length * sin(angle))
+
+def to_radians(degrees):
+    return (degrees * pi) / 180
+
+def to_degrees(radians):
+    return (radians * 180) / pi
+```
+
+However, we cannot still transform the *Cartesian coordinates* into its *polar* equivalent. In order to do that, we need to define the inverse trigonometric functions of the *tangent*, *sine* and *cosine*, namely the *arctangent*, *arcsine* and *arccosine*.
+
+```
+asin(sin(angle)) = angle
+acos(cos(angle)) = angle
+atan(tan(angle)) = angle
+```
+
+Yet however, with the inverse trigonometric functions won't give us the answer as there are several angles whose sine give us the same number, and the same happens for the *cosine* and the *tangent*.
+
+In order to get the correct angle we need to use the `atan2(vertical, horizontal)` function, which is an *arctangent* function implementation that considers the signs of the coordinates to give us the right value.
+
+As such, we can finally implement the `to_polar()` function:
+
+```python
+def to_polar(vector):
+    x, y = vector[0], vector[1] # destructuring
+    angle = atan2(y, x)
+    return (length(vector), angle)
+```
+
+
