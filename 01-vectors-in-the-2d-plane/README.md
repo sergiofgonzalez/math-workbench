@@ -180,4 +180,7 @@ def to_polar(vector):
     return (length(vector), angle)
 ```
 
+## Transforming Collections of Vectors
+Collections of vectors store spatial data in the 2D plane, regardless of what coordinate system we use. However, we have already seen that Cartesian system is very conducive to *translation* (movement of vectors) and the polar system is conducive to angle related operations such as rotations, as it has the angle built into its representations.
 
+In polar coordinates, adding to the angle rotates a vector further counterclockwise, while subtracting from it rotates the vector clockwise.
