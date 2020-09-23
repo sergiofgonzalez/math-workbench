@@ -1,5 +1,12 @@
 # 01 &mdash; Vectors in the 2D Plane
-> (TBD)
+> vectors and vector arithmetics in the 2D plane
+
+## Contents
++ Introduction to vectors in the 2D space
++ The vector drawing library `vector_drawing`
++ Vector Arithmetics: vector addition, scalar product, vector subtraction
++ Angles and Trigonometry in the plane
+
 
 ## Introduction
 Models of 2D entities are important in programming. Anything that shows up on the screen is a 2D object occupying some width and height of pixels.
@@ -184,3 +191,23 @@ def to_polar(vector):
 Collections of vectors store spatial data in the 2D plane, regardless of what coordinate system we use. However, we have already seen that Cartesian system is very conducive to *translation* (movement of vectors) and the polar system is conducive to angle related operations such as rotations, as it has the angle built into its representations.
 
 In polar coordinates, adding to the angle rotates a vector further counterclockwise, while subtracting from it rotates the vector clockwise.
+
+## You know you've mastered this section if...
++ You're comfortable thinking of vectors as mathematical objects that live in multi-dimensional spaces, and represented as tuples `(x, y, z, t, w)`.
++ You're aware that vectors in the 2D are represented by tuples `(a, b)`.
++ You know that vectors can be thought of *arrows* having a specified length and direction.
++ You're comfortable thinking of points in the 2D space also as tuples `(a, b)`. Many times you can think about points and vectors at the same time.
++ You're comfortable drawing points (or vectors) in the 2D using axis, and know about the origin `(0, 0)`.
++ Vectors in the 2D space can be decomposed in the components `{(1, 0), (0,1)}` which represent the value of their x and y coordinates. This system is known as the Cartesian coordinates of the vector.
++ Vector addition has the effect of translating (i.e. moving) a vector in the direction and magnitude of the second vector. You're aware of the *tip-to-tail* addition to geometrically represent the vector addition.
++ Scalar multiplication of a vector by a numeric factor yields a vector in the same direction of the original one that is scaled by the given factor.
++ Subtracting one vector from another gives the relative position of the second vector from the first, in what is known the *displacement vector*. The length of the displacement vector is the distance between two given vectors (or points).
++ The trigonometric functions *tangent*, *sine* and *cosine* can be geometrically interpreted as:
+  + `tangent = y_coord / x coord`
+  + `sine = y_coord / length`
+  + `cosine = x_coord / length`
++ There are inverse functions for the *tangent*, *sine* and *cosine* named *arctangent*, *arcsine* and *arccosine* that gives you the angle that satisfies the function.
++ Vectors can also represented using polar coordinates, which consists in also a tuple `(length, angle)`.
++ When not specified, angles are given in a unit called *radians*. `π radians = 180°`.
++ Using trigonometric functions, the Cartesian coordinates of a vector (or point) can be transformed into their corresponding polar coordinates.
++ While Cartesian coordinates are conducive for translations, polar coordinates are conducive for rotations.
