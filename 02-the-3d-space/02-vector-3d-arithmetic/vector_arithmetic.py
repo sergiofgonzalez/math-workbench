@@ -1,7 +1,7 @@
 # A collection of supporting functions for Vector Arithmetic
 
 def add(*vectors):
-  """Return vector resulting of adding the given vectors
+  """Return vector sum resulting of adding the given vectors
 
   The vectors must be given in their Cartesian coordinates.
   """
@@ -18,7 +18,7 @@ def subtract(v, w):
 
 def scalar_product(factor, v):
   """
-  Return the vector resulting from multiplying the scalar factor by the vector v
+  Return the vector resulting from multiplying input scalar times the input vector.
 
   Factor is any real number, and v is a vector given in their Cartesian coordinates.
   """
