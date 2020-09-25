@@ -1,4 +1,6 @@
 # A collection of supporting functions for Vector Arithmetic
+from math import sqrt
+
 
 def add(*vectors):
   """Return vector sum resulting of adding the given vectors
@@ -17,10 +19,15 @@ def subtract(v, w):
   return tuple( v[i] - w[i] for i in range(0, len(v)) )
 
 def scalar_product(factor, v):
-  """
-  Return the vector resulting from multiplying input scalar times the input vector.
+  """Return the vector resulting from multiplying input scalar times the input vector.
 
   Factor is any real number, and v is a vector given in their Cartesian coordinates.
   """
   return tuple( factor * v_i for v_i in v )
 
+def length(v):
+  """Return the length of the vector
+
+  v is a vector given in their Cartesian coordinates.
+  """
+  return sqrt(sum([ v_i ** 2 for v_i in v]))
