@@ -101,3 +101,13 @@ def perimeter(vectors):
   """
   distances = [distance(vectors[i], vectors[(i + 1) % len(vectors)]) for i in range(0, len(vectors))]
   return sum(distances)
+
+
+def cross_product(u, v):
+  """Return the cross product of u x v.
+
+  The vectors must be three dimensional and given in their Cartesian coordinates.
+  """
+  ux, uy, uz = u
+  vx, vy, vz = v
+  return (uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx)
