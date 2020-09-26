@@ -1,5 +1,5 @@
 # A collection of supporting functions for Vector Arithmetic
-from math import sqrt
+from math import sqrt, pi, acos
 
 
 def add(*vectors):
@@ -47,3 +47,18 @@ def dot_product(u, v):
   u and v are vectors of any dimension given in their Cartesian coordinates.
   """
   return sum([coord1 * coord2 for coord1, coord2 in zip(u, v)])
+
+def to_radians(degrees):
+  """Return the radians value for the given value in degrees"""
+  return (degrees * pi) / 180
+
+def to_degrees(radians):
+  """Return degrees value for the given value in radians"""
+  return (radians * 180) / pi
+
+def angle_between(u, v):
+  """Return the angle between u and v
+
+  u and v are vectors of any dimension given in their Cartesian coordinates.
+  """
+  return acos(dot_product(u, v) / (length(u) * length(v)))
