@@ -62,3 +62,13 @@ def angle_between(u, v):
   u and v are vectors of any dimension given in their Cartesian coordinates.
   """
   return acos(dot_product(u, v) / (length(u) * length(v)))
+
+
+def cross_product(u, v):
+  """Return the cross product of u and v
+
+  The vectors must be 3D vectors given in their Cartesian coordinates
+  """
+  ux, uy, uz = u
+  vx, vy, vz = v
+  return (uy * vz - uz * vy, uz * vx - ux * vz, ux * vy - uy * vx)
