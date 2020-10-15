@@ -10,6 +10,7 @@
 + `vectors_my_implementation.py` &mdash; vector supporting functions to add vectors, cross product, etc.
 + `my_colors.py` &mdash; fixes on `colors.py` as it didn't work for orange color.
 + `my_draw2d.py` &mdash; simple customization of `draw2d.py` that uses `my_colors.instead`.
++ `my_draw3d.py` &mdash; simple customization of `draw3d.py` that uses `my_colors.instead`.
 
 + `teapot.off` &mdash; The Utah teapot 3D model as an *off* file (original from the author)
 + `teapot.py` &mdash; Support functions such as `load_triangles(...)` used to draw the Utah teapot (original from the author)
