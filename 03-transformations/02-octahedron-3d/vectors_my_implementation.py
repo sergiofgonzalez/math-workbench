@@ -70,8 +70,18 @@ def translate(translation_vector, vectors):
   """
   return [add(translation_vector, v) for v in vectors]
 
-def rotate2d(rotation_angle, vectors):
-  """Return the vectors rotated by the given angle
+def rotate2d(rotation_angle, vector):
+  """Return the vector that results from rotating the given vector by the provided angle
+
+  The rotation angle must be given in radians, and the vector must be a 2D vector
+  specified using its Cartesian coordinates
+  """
+  vector_length, vector_angle = to_polar(vector)
+  new_vector_angle = vector_angle + rotation_angle
+  return to_cartesian((vector_length, new_vector_angle))
+
+def rotate2d_multiple(rotation_angle, vectors):
+  """Return the list of vectors rotated by the given angle
 
   The rotation angle must be given in radians, and the vectors must be 2D vectors
   specified using their Cartesian coordinates

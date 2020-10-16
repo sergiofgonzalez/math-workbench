@@ -3,7 +3,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 import matplotlib.cm
-from vectors import *
+from vectors_my_implementation import *
 from math import *
 
 def normal(face):
