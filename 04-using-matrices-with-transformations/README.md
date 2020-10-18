@@ -4,22 +4,12 @@
 ## Concepts and standalone projects
 TBD
 
-### [Setting up shop](./00-setting-up-shop-notebook)
-A notebook with details on how to install additional libraries required for this chapter (*PyGame* and *PyOpenGL*). Also, the first steps into these libraries and a few examples are given.
-
-### [Concepts on Transformations](./01-transformation-concepts-notebook)
+### [Transformations with matrices](./01-transformations-with-matrices)
 A notebook with all the concepts and examples of the chapter.
 
-### [Octahedron 3D](./02-octahedron-3d)
-A shakedown test on *PyOpenGL* and *PyGame* concepts applied to the octahedron shape.
+### [Draw animated transformation](./02-draw-animated-transformation)
+A standalone project in which the `draw_model(...)` function is modified to include an additional named parameter that allows passing a transformation matrix. The transformation is used to transform the 3D shape (faces) before displaying every frame, to animate it.
 
-### [Octahedron 3D](./02-octahedron-3d)
-A shakedown test on *PyOpenGL* and *PyGame* concepts applied to the octahedron shape.
-The main program listens to simple key and mouse events such as:
-+ `a` &mdash; start animation of the 3D shape rotating it about the three axes
-+ `s` &mdash; stop animation
-+ `left mouse button` &mdash; rotate the 3D shape about the z axis 30°
-+ `right mouse button` &mdash; rotate the 3D shape about the y and z axis 30°
 
 ### Exercises and *above and beyond* standalone projects
 TBD
