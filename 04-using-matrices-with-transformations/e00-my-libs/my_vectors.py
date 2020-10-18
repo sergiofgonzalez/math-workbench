@@ -138,3 +138,10 @@ def unit(v):
   The vector must be given in its Cartesian coordinates.
   """
   return scale(1. / length(v), v)
+
+# added in exercise 5.1
+def standard_basis(dimension):
+    def standard_basis_vector(i):
+        return tuple(1 if i == j else 0 for j in range(0, dimension))
+    standard_basis = [standard_basis_vector(i) for i in range(0, dimension)]
+    return standard_basis
