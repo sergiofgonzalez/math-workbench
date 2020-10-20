@@ -1,4 +1,5 @@
-from my_transformations import linear_combination
+# from my_transformations import linear_combination # no longer needed
+# also: it was creating a circular dependency between transformations and matrices
 from my_vectors import dot, standard_basis
 from random import randint
 
