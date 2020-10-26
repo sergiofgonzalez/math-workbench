@@ -8,6 +8,15 @@ from random import randint
 
 # added in exercise 5.8 (nothing wrong with previous impl, but this one sooo much clear! )
 def multiply_matrix_vector(m, v):
+    if not are_valid_matrices(m):
+        raise TypeError('multiply_matrix_vector requires a valid matrix as first argument')
+
+    if not are_valid_vectors(v):
+        raise TypeError('multiply_matrix_vector requires a numeric vector as argument')
+
+    if get_matrix_dimensions(m)['num_cols'] != len(v):
+        raise TypeError('multiply_matrix_vector requires matrix num columns to match vector size')
+
     return tuple(dot(row, v) for row in m)
 
 def matrix_multiply(a, b):
@@ -40,3 +49,63 @@ def random_matrix(num_rows, num_cols, min_int_inc=0, max_int_inc=10):
     )
     return result
 
+# supporting functions, safeguards and common validations
+# added in exercise 5.15
+
+def get_matrix_dimensions(m):
+    """Returns a dictionary object with rows and columns
+
+    The function will fail if not passing a valid matrix
+    """
+    if not are_valid_matrices(m):
+        raise TypeError('get_matrix_dimensions requires a valid matrix')
+
+    num_rows = len(m)
+    num_cols = len(m[0])
+
+    return {'num_rows': num_rows, 'num_cols': num_cols, 'printable_str': '{}x{}'.format(num_rows, num_cols)}
+
+
+def are_valid_vectors(*vectors):
+    """
+    Requirements for a valid vector:
+        + a vector is a tuple
+        + all elements of the tuple are numeric
+    """
+    # early detection, otherwise iteration for are_all_numeric will fail
+    are_all_tuples = all(isinstance(vector, tuple) for vector in vectors)
+    if not are_all_tuples:
+        return False
+
+    are_all_numeric = all(isinstance(elem, (int, float)) for vector in vectors for elem in vector)
+    return are_all_numeric
+
+def are_valid_matrices(*matrices):
+    """
+    Requirements for a matrix:
+        + a matrix is a tuple of tuples:
+            + matrix is a tuple
+            + all elements of a matrix are tuples
+        + all rows must have same number of elements
+        + all elements must be numeric
+    """
+    def is_matrix(m):
+        # checking if m if tuple of tuples, otherwise, further iteration will fail
+        m_is_tuple_of_tuples = all(isinstance(row, tuple) for row in m)
+        if not m_is_tuple_of_tuples:
+            return False
+
+        if len(m) < 1 and len(m[0]) < 1:
+            return TypeError('is_matrix expects a matrix with at least one row and one column')
+
+        num_cols = len(m[0])
+
+        return all(len(row) == num_cols and isinstance(elem, (int, float)) for row in m for elem in row)
+
+
+    are_all_tuples = all(isinstance(m, tuple) for m in matrices)
+    if not are_all_tuples:
+        return False
+
+    all_matrices = all(is_matrix(m) for m in matrices)
+    return all_matrices
