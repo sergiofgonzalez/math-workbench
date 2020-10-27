@@ -20,6 +20,12 @@ def multiply_matrix_vector(m, v):
     return tuple(dot(row, v) for row in m)
 
 def matrix_multiply(a, b):
+    if not are_valid_matrices(a, b):
+        raise TypeError('multiply_matrix_vector requires valid matrices as arguments')
+
+    if get_matrix_dimensions(a)['num_cols'] != get_matrix_dimensions(b)['num_rows']:
+        raise TypeError('multiply_matrix_vector requires matrix compatible for multiplication')
+
     return tuple(
         tuple(dot(row_from_a, col_from_b) for col_from_b in zip(*b))
         for row_from_a in a
@@ -33,6 +39,15 @@ def infer_matrix(n, transformation):
     vector, this function computes the associated transformation matrix that results
     from applying that transformation to the standard basis vectors.
     """
+    if not isinstance(n, int):
+        raise TypeError('infer_matrix requires an int as the first argument')
+
+    if n < 2:
+        raise ValueError('infer_matrix requires an int greater or equal than 2')
+
+    if not callable(transformation):
+        raise TypeError('infer_matrix requires a function taking a vector as second argument')
+
     transformations_on_standard_basis = [transformation(ei) for ei in standard_basis(n)]
     return tuple(zip(*transformations_on_standard_basis))
 

@@ -1,5 +1,5 @@
 import unittest  # https://docs.python.org/3/library/unittest.html
-from my_matrices import are_valid_vectors, are_valid_matrices, multiply_matrix_vector
+from my_matrices import are_valid_vectors, are_valid_matrices, multiply_matrix_vector, matrix_multiply, infer_matrix
 
 from math import sqrt, sin, cos, pi
 
@@ -159,8 +159,123 @@ class MyMatricesTestCase(unittest.TestCase):
 
         self.assertEqual(actual_multiplication_result, expected_multiplication_result, msg='multiplication results should match')
 
+    def test_matrix_multiply_non_valid_matrix_a(self):
+        with self.assertRaises(TypeError, msg='should fail when first matrix is not a valid one'):
+            a = 1
+            b = (
+                (1, 2, 3),
+                (4, 5, 6)
+            )
+            matrix_multiply(a, b)
 
+    def test_matrix_multiply_non_valid_matrix_b(self):
+        with self.assertRaises(TypeError, msg='should fail when first matrix is not a valid one'):
+            a = (
+                (1, 2, 3),
+                (4, 5, 6)
+            )
+            b = 1
+            matrix_multiply(a, b)
 
+    def test_matrix_multiply_non_valid_matrix_a_non_numeric(self):
+        with self.assertRaises(TypeError, msg='should fail when first matrix is not a valid one'):
+            a = (
+                (1, 2, 3),
+                (4, '5', 6)
+                )
+            b = (
+                (7, 8),
+                (9, 10),
+                (11, 12)
+            )
+            matrix_multiply(a, b)
+
+    def test_matrix_multiply_non_valid_matrix_b_non_numeric(self):
+        with self.assertRaises(TypeError, msg='should fail when first matrix is not a valid one'):
+            a = (
+                (1, 2, 3),
+                (4, 5, 6)
+                )
+            b = (
+                (7, 8),
+                ('a', 10),
+                (11, 12)
+            )
+            matrix_multiply(a, b)
+
+    def test_matrix_multiply_non_valid_matrix_sizes(self):
+        with self.assertRaises(TypeError, msg='should fail when first matrix is not a valid one'):
+            a = (
+                (1, 2, 3),
+                (4, 5, 6)
+            )
+            b = (
+                (1, 2, 3),
+                (4, 5, 6)
+            )
+            matrix_multiply(a, b)
+
+    def test_matrix_multiply_happy_path_square_matrices(self):
+            a = (
+                (1, 2),
+                (3, 4)
+            )
+            b = (
+                (5, 6),
+                (7, 8)
+            )
+            actual_matrix_multiply_result = matrix_multiply(a, b)
+            expected_matrix_multiply_result = (
+                (19, 22),
+                (43, 50)
+                )
+            self.assertEqual(actual_matrix_multiply_result, expected_matrix_multiply_result, msg='result should match')
+
+    def test_matrix_multiply_happy_path_non_square_matrices(self):
+            a = (
+                (1, 2, 3),
+                (4, 5, 6)
+            )
+            b = (
+                (5, 6),
+                (7, 8),
+                (9, 10)
+            )
+            actual_matrix_multiply_result = matrix_multiply(a, b)
+            expected_matrix_multiply_result = (
+                (46, 52),
+                (109, 124)
+                )
+            self.assertEqual(actual_matrix_multiply_result, expected_matrix_multiply_result, msg='result should match')
+
+    # infer_matrix tests
+    def test_infer_matrix_invalid_dimension(self):
+        with self.assertRaises(TypeError, msg='should fail when not giving int'):
+            def transformation(v):
+                return v
+
+            infer_matrix('a', transformation)
+
+        with self.assertRaises(TypeError, msg='should fail when not giving int'):
+            infer_matrix(2.0, transformation)
+
+        with self.assertRaises(ValueError, msg='should fail when not giving int >= 2'):
+            infer_matrix(1, transformation)
+
+    def test_infer_matrix_invalid_function(self):
+        with self.assertRaises(TypeError, msg='should fail when not giving int'):
+            infer_matrix(2, 'a')
+
+    def test_infer_matrix_happy_path(self):
+        def transformation(v):
+            return v
+
+        actual_infer_matrix = infer_matrix(3, transformation)
+        expected_infer_matrix = (
+            (1, 0, 0),
+            (0, 1, 0),
+            (0, 0, 1))
+        self.assertEqual(actual_infer_matrix, expected_infer_matrix, msg='results should match')
 
     # def test_first_arg_non_matrix(self):
     #     m = ((1, 0, 0),
