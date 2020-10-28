@@ -55,8 +55,30 @@ def infer_matrix(n, transformation):
 def random_matrix(num_rows, num_cols, min_int_inc=0, max_int_inc=10):
     def get_random_in_range(min_val, max_val):
         def new_function():
-            return randint(min_val, max_val + 1)
+            return randint(min_val, max_val)
         return new_function
+
+    if not isinstance(num_rows, int):
+        raise TypeError('random_matrix expects first argument to be an int')
+
+    if not isinstance(num_cols, int):
+        raise TypeError('random_matrix expects second argument to be an int')
+
+    if not isinstance(min_int_inc, int):
+        raise TypeError('random_matrix expects min_int_inc to be an int')
+
+    if not isinstance(max_int_inc, int):
+        raise TypeError('random_matrix expects min_int_inc to be an int')
+
+    if not isinstance(num_rows, int):
+        raise TypeError('random_matrix expects first argument to be an int')
+
+    if num_cols < 2:
+        raise ValueError('random_matrix expects first argument to be >= 2')
+
+    if num_rows < 2:
+        raise ValueError('random_matrix expects second argument to be >= 2')
+
     rand = get_random_in_range(min_int_inc, max_int_inc)
     result = tuple(
         tuple(rand() for i in range(0, num_cols))
