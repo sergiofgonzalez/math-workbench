@@ -86,6 +86,23 @@ def random_matrix(num_rows, num_cols, min_int_inc=0, max_int_inc=10):
     )
     return result
 
+# added in exercise 5.18
+def transpose(matrix):
+    """Return the given matrix transposed."""
+    if (not are_valid_matrices(matrix)):
+        raise TypeError('transpose expects a valid matrix')
+
+    return tuple(zip(*matrix))
+
+def transpose_row_vector(vector):
+    """Return the given vector written as a tuple as a col vector"""
+
+    if (not are_valid_vectors(vector)):
+        raise TypeError('vector_to_row_vector expects a valid vector')
+
+    return tuple(zip(vector))
+
+
 # supporting functions, safeguards and common validations
 # added in exercise 5.15
 
