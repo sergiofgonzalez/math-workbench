@@ -82,3 +82,34 @@ def apply_matrix_transformation(matrix):
     def new_function(v):
         return multiply_matrix_vector(matrix, v)
     return new_function
+
+# added in section 5.3.4
+def translate_2d(translation_vector):
+    def new_function(v):
+        a, b = translation_vector
+        x, y = v
+        matrix = (
+            (1, 0, a),
+            (0, 1, b),
+            (0, 0, 1)
+        )
+        upgraded_vector = (x, y, 1)
+        x_out, y_out, _ = multiply_matrix_vector(matrix, upgraded_vector)
+        return (x_out, y_out)
+    return new_function
+
+def translate_3d(translation_vector):
+    def new_function(target):
+        a, b, c = translation_vector
+        x, y, z = target
+        matrix = (
+            (1, 0, 0, a),
+            (0, 1, 0, b),
+            (0, 0, 1, c),
+            (0, 0, 0, 1)
+        )
+        vector = (x, y, z, 1)
+        x_out, y_out, z_out, _ = \
+            multiply_matrix_vector(matrix, vector)
+        return (x_out, y_out, z_out)
+    return new_function
