@@ -6,4 +6,5 @@ Contents:
 + [01 - Vectors in the 2D plane](./01-vectors-in-the-2d-plane/README.md)
 + [02 - The 3D space](./02-the-3d-space/README.md)
 + [03 - Transformations](./03-transformations/README.md)
++ [04 - Using matrices with transformations](./04-using-matrices-with-transformations/README.md)
 

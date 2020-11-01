@@ -20,7 +20,7 @@ The main program listens to simple key and mouse events such as:
 + `left mouse button` &mdash; rotate the 3D shape about the z axis 30°
 + `right mouse button` &mdash; rotate the 3D shape about the y and z axis 30°
 
-### Exercises and *above and beyond* standalone projects
+## Exercises and *above and beyond* standalone projects
 
 ### [Exercises: Setting up shop](./e00-setting-up-shop-exercises)
 A notebook with the exercises of the *Setting up shop* section.
