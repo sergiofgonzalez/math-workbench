@@ -1,10 +1,11 @@
-# 04 &mdash; Using matrices with transformations
-> matrices as computational tools for transformations within and across dimensions
+# 05 &mdash; Generalizations for higher dimensions
+> TBD
 
-## Concepts and standalone projects
+## Concepts and standalone projects (TBD)
 
-### [Transformations with matrices](./01-transformations-with-matrices)
+### [Generalizing for higher dimension](./01-generalizing-to-higher-dimensions-concepts-notebook)
 A notebook with all the concepts and examples of the chapter.
+
 
 ### [Draw animated transformation](./02-draw-animated-transformation)
 A standalone project in which the `draw_model(...)` function is modified to include an additional named parameter that allows passing a transformation matrix. The transformation is used to transform the 3D shape (faces) before displaying every frame, to animate it.
