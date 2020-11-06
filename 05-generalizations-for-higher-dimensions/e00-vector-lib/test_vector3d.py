@@ -61,7 +61,23 @@ class Vec3TestCase(VectorTestCase):
             u, v, w = self.random_vec3(), self.random_vec3(), self.random_vec3()
             self.check_vector_space_rules(self.approx_equal_vec3, a, b, u, v, w)
 
+    def test_zero_vector(self):
+        self.assertEqual(Vec3.zero(), Vec3(0, 0, 0))
 
+    def test_negate_vector(self):
+        self.assertEqual(-Vec3(-1, 2, -3), Vec3(1, -2, 3))
+
+    # added in exercise 6.6
+    def test_eq_between_classes(self):
+        self.assertFalse(Vec3(1, 2, 3) == Vec2(1, 2))
+
+    def test_add_between_classes_1(self):
+        with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
+            Vec2(1, 2) + Vec3(1, 2, 3)
+
+    def test_add_between_classes_2(self):
+        with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
+            Vec3(1, 2, 3) + Vec2(1, 2)
 
 if __name__ == '__main__':
     unittest.main()

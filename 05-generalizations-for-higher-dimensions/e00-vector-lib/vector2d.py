@@ -5,6 +5,10 @@ class Vec2(Vector):
         self.x = x
         self.y = y
 
+    @classmethod
+    def zero(cls):
+        return Vec2(0, 0)
+
     def add(self, other):
         return Vec2(self.x + other.x, self.y + other.y)
 
@@ -12,7 +16,10 @@ class Vec2(Vector):
         return Vec2(scalar * self.x, scalar * self.y)
 
     def __eq__(self, other):
-        return (self.x == other.x and self.y == other.y)
+        if not self.__class__ in other.__class__.mro():
+            return False
+        else:
+            return (self.x == other.x and self.y == other.y)
 
     def __repr__(self):
         return 'Vec2({}, {})'.format(self.x, self.y)  

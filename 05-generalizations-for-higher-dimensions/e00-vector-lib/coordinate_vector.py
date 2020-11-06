@@ -1,11 +1,12 @@
 from vector import Vector
 from my_vectors import add, scale
-from abc import abstractproperty
+from abc import abstractmethod
 
 class CoordinateVector(Vector):
 
-    @abstractproperty
-    def dimension(self):
+    @classmethod
+    @abstractmethod
+    def zero(cls):
         pass
 
     def __init__(self, *coordinates):
@@ -25,3 +26,9 @@ class CoordinateVector(Vector):
 
     def __repr__(self):
         return '{}{}'.format(self.__class__.__qualname__, self.coordinates)
+
+    def __eq__(self, other):
+        if not self.__class__ in other.__class__.mro():
+            return False
+        else:        
+            return self.coordinates == other.coordinates

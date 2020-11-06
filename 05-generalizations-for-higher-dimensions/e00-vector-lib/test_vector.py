@@ -15,3 +15,8 @@ class VectorTestCase(unittest.TestCase):
         self.assertTrue(eqFn(1 * v, v))
         self.assertTrue(eqFn((a + b) * v, a * v + b * v))
         self.assertTrue(eqFn(a * v + a * w, a * (v + w)))
+        
+        # added in exercise 6.5
+        self.assertTrue(eqFn(v.__class__.zero() + v, v))
+        self.assertTrue(eqFn(0 * v, v.__class__.zero()))
+        self.assertTrue(eqFn(-v + v, v.__class__.zero()))

@@ -10,6 +10,14 @@ class Vector(metaclass=ABCMeta):
     def add(self, other):
         pass
 
+    @classmethod
+    @abstractmethod
+    def zero(cls):
+        pass
+
+    def __neg__(self):
+        return self.scale(-1)
+
     def __mul__(self, scalar):
         if not isinstance(scalar, (int, float)):
             raise TypeError('scalar multiplication expects a numeric scalar')

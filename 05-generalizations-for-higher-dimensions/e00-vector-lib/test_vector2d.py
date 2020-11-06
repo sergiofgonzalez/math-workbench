@@ -2,6 +2,7 @@ import unittest  # https://docs.python.org/3/library/unittest.html
 from math import isclose
 from random import uniform
 from vector2d import Vec2
+from vector3d import Vec3
 from test_vector import VectorTestCase
 
 class Vec2TestCase(VectorTestCase):
@@ -52,7 +53,24 @@ class Vec2TestCase(VectorTestCase):
             u, v, w = self.random_vec2(), self.random_vec2(), self.random_vec2()
             self.check_vector_space_rules(self.approx_equal_vec2, a, b, u, v, w)
 
+    def test_zero_vector(self):
+        self.assertEqual(Vec2.zero(), Vec2(0, 0))
 
+    def test_negate_vector(self):
+        self.assertEqual(-Vec2(-1, 2), Vec2(1, -2))
+
+   # added in exercise 6.6
+    def test_eq_between_classes(self):
+        self.assertFalse(Vec2(1, 2) == Vec3(1, 2, 3))
+        self.assertFalse(Vec3(1, 2, 3) == Vec2(1, 2))        
+
+    def test_add_between_classes_1(self):
+        with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
+            Vec2(1, 2) + Vec3(1, 2, 3)
+
+    def test_add_between_classes_2(self):
+        with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
+            Vec3(1, 2, 3) + Vec2(1, 2)
 
 if __name__ == '__main__':
     unittest.main()
