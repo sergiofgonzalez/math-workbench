@@ -48,3 +48,10 @@ class Vector(metaclass=ABCMeta):
             raise TypeError('__sub__: given vector does not seem to be a compatible class')
 
         return self.subtract(other)
+
+    # added in Exercise 6.7
+    def __truediv__(self, scalar):
+        if not isinstance(scalar, (int, float)):
+            raise TypeError('scalar division expects a numeric scalar')
+
+        return self.scale(1.0 / scalar)

@@ -1,5 +1,5 @@
 import unittest  # https://docs.python.org/3/library/unittest.html
-from math import isclose
+from math import isclose, pi
 from vector6d import Vec6
 from test_coordinate_vector import CoordinateVectorTest
 from vector2d import Vec2
@@ -104,6 +104,10 @@ class Vec6TestCase(CoordinateVectorTest):
 
         with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
             Vec7(1, 2, 3, 4, 5, 6, 7) + Vec6(1, 2, 3, 4, 5, 6)
+
+    # added in exercise 6.7
+    def test_scalar_division(self):
+        self.approx_equal(Vec6(1, -2, 3, -4, 5.1, pi) / 3.25, Vec6(1 / 3.25, -2 / 3.25, 3 / 3.25, -4 / 3.25, 5.1 / 3.25, pi / 3.25))     
 
 if __name__ == '__main__':
     unittest.main()

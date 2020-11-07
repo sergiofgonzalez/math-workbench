@@ -79,5 +79,9 @@ class Vec3TestCase(VectorTestCase):
         with self.assertRaises(TypeError, msg='shoud raise TypeError when not compatible class'):        
             Vec3(1, 2, 3) + Vec2(1, 2)
 
+    # added in exercise 6.7
+    def test_scalar_division(self):
+        self.approx_equal_vec3(Vec3(10, -4.4, 1) / 2, Vec3(5, -2.2, 0.5))     
+
 if __name__ == '__main__':
     unittest.main()
