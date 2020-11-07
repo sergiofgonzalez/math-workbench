@@ -1,10 +1,14 @@
 import unittest
+from test_vector0d import Vec0TestCase
+from test_vector1d import Vec1TestCase
 from test_vector2d import Vec2TestCase
 from test_vector3d import Vec3TestCase
 from test_vector6d import Vec6TestCase
 
 def suite():
     suite = unittest.TestSuite()
+    suite.addTests(unittest.makeSuite(Vec0TestCase))
+    suite.addTests(unittest.makeSuite(Vec1TestCase))    
     suite.addTests(unittest.makeSuite(Vec2TestCase))
     suite.addTests(unittest.makeSuite(Vec3TestCase))
     suite.addTests(unittest.makeSuite(Vec6TestCase))
