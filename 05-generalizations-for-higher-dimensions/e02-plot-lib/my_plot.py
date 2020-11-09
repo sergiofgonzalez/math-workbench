@@ -11,5 +11,6 @@ def plot(functions, xmin, xmax, title=None):
     for f in functions:
         ys = [f(x) for x in xs]
         plt.plot(xs, ys)
-
+    
+    # this line is not required when running in Jupyter notebook environments
     plt.show()
