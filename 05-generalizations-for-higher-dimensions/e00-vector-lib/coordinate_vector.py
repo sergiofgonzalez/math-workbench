@@ -9,7 +9,15 @@ class CoordinateVector(Vector):
     def zero(cls):
         pass
 
+    @classmethod
+    @abstractmethod
+    def dimension(self):
+        pass
+
     def __init__(self, *coordinates):
+        if len(coordinates) != self.__class__.dimension():
+            raise TypeError('CoordinateVector constructor was expecting a {} coordinate(s)'.format(self.__class__.dimension()))
+
         self.coordinates = tuple(x for x in coordinates)
 
     def add(self, other):

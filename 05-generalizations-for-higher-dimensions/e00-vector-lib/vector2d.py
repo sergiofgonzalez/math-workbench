@@ -4,6 +4,7 @@ class Vec2(Vector):
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.coordinates = (x, y) # compatibility with CoordinateVector        
 
     @classmethod
     def zero(cls):

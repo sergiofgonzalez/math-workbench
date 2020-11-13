@@ -5,6 +5,7 @@ class Vec3(Vector):
         self.x = x
         self.y = y
         self.z = z
+        self.coordinates = (x, y, z) # compatibility with CoordinateVector
 
     @classmethod
     def zero(cls):
