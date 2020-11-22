@@ -12,6 +12,7 @@ from test_matrix_2x2 import Matrix2x2TestCase
 from test_matrix_5x3 import Matrix5x3TestCase
 from test_linear_map_3d_to_5d import LinearMap_3d_to_5d_TestCase
 from test_vector_linear_function import LinearFunctionTestCase
+from test_vector_quadratic_function import QuadraticFunctionTestCase
 
 
 def suite():
@@ -29,6 +30,7 @@ def suite():
     suite.addTests(unittest.makeSuite(Matrix5x3TestCase))
     suite.addTests(unittest.makeSuite(LinearMap_3d_to_5d_TestCase))
     suite.addTests(unittest.makeSuite(LinearFunctionTestCase))
+    suite.addTests(unittest.makeSuite(QuadraticFunctionTestCase))    
 
     return suite
 
