@@ -8,3 +8,4 @@ Contents:
 + [03 - Transformations](./03-transformations/README.md)
 + [04 - Using matrices with transformations](./04-using-matrices-with-transformations/README.md)
 + [05 - Generalizations for higher dimensions](./05-generalizations-for-higher-dimensions/README.md)
++ [06 - Solving systems of linear equations](./06-solving-systems-of-linear-equations/README.md)
