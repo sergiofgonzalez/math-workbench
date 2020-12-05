@@ -1,6 +1,6 @@
 from my_vectors import to_cartesian, add, rotate2d
 from math import pi, sqrt, sin, cos
-from random import randint, uniform        
+from random import randint, uniform
 
 class PolygonModel():
     def __init__(self, points):
@@ -35,3 +35,15 @@ class Asteroid(PolygonModel):
             for i in range(0, sides)
         ]
         super().__init__(points)
+
+# Added in Exercise 7.2
+def to_pixels_factory(x_min, x_max, y_min, y_max, width, height):
+    """Maps Math model coordinates to pixels in the game window
+    """
+    x_size = x_max - x_min
+    y_size = y_max - y_min
+    def new_to_pixels_function(x, y):
+        x_game = (width / x_size) * x - (x_min * width / x_size)
+        y_game = -(height / y_size) * y + (y_max * height / y_size)
+        return (x_game, y_game)
+    return new_to_pixels_function
