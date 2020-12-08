@@ -1,4 +1,4 @@
-from my_vectors import add, scale, subtract
+from my_vectors import add, scale, subtract, distance
 import numpy as np
 
 def standard_form(v1, v2):
@@ -63,6 +63,27 @@ def intersection(u1, u2, v1, v2):
 
     return intersection
 
+def do_segments_intersect(s1, s2):
+    """Return True if the two segments defined by s1 and s2 intersect,
+    or false otherwise.
+    s1 and s2 are two sets of points.
+    """
+    u1, u2 = s1
+    v1, v2 = s2
+    d1 = distance(u1, u2)
+    d2 = distance(v1, v2)
+    try:
+        x, y = intersection(u1, u2, v1, v2)
+        return (
+            distance(u1, (x, y)) <= d1 and
+            distance(u2, (x, y)) <= d1 and
+            distance(v1, (x, y)) <= d2 and
+            distance(v2, (x, y)) <= d2
+        )
+
+    except np.linalg.LinAlgError:
+        return False
+
 
 def validate_vectors(*vectors):
     """Return True if the given vectors are 2D vectors with numeric
@@ -74,6 +95,5 @@ def validate_vectors(*vectors):
 
     if not all([isinstance(coordinate, (int, float)) for vector in vectors for coordinate in vector]):
         raise TypeError('validate_vectors require vectors with numeric coordinates')
-
 
 
