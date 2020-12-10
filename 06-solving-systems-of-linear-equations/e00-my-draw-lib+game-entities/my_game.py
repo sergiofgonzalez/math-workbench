@@ -1,6 +1,7 @@
 from my_vectors import to_cartesian, add, rotate2d
 from math import pi, sqrt, sin, cos
 from random import randint, uniform
+from my_linear_equations import do_segments_intersect
 
 class PolygonModel():
     def __init__(self, points):
@@ -17,6 +18,20 @@ class PolygonModel():
         # return [add((self.x, self.y), v) for v in self.points]
         rotated_points = [rotate2d(self.rotation_angle, point) for point in self.points]
         return [add((self.x, self.y), rotated_point) for rotated_point in rotated_points]
+
+
+    # Added in Exercise 7.13
+    def segments(self):
+        points_count = len(self.points)
+        points = self.transformed()
+        return [(points[i], points[(i + 1) % points_count]) for i in range(0, points_count)]
+
+    # Added in Exercise 7.13
+    def does_intersect(self, other_segment):
+        for segment in self.segments():
+            if do_segments_intersect(other_segment, segment):
+                return True
+        return False
 
 class Ship(PolygonModel):
     def __init__(self):
@@ -47,3 +62,4 @@ def to_pixels_factory(x_min, x_max, y_min, y_max, width, height):
         y_game = -(height / y_size) * y + (y_max * height / y_size)
         return (x_game, y_game)
     return new_to_pixels_function
+
