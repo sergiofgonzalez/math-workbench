@@ -20,16 +20,23 @@ class PolygonModel():
         return [add((self.x, self.y), rotated_point) for rotated_point in rotated_points]
 
 
-    # Added in Exercise 7.13
+    # Added in Exercise 7.14
     def segments(self):
         points_count = len(self.points)
         points = self.transformed()
         return [(points[i], points[(i + 1) % points_count]) for i in range(0, points_count)]
 
-    # Added in Exercise 7.13
+    # Added in Exercise 7.14
     def does_intersect(self, other_segment):
         for segment in self.segments():
             if do_segments_intersect(other_segment, segment):
+                return True
+        return False
+
+    # Added in Exercise 7.14
+    def does_collide(self, other_polygon):
+        for other_poly_segment in other_polygon.segments():
+            if self.does_intersect(other_poly_segment):
                 return True
         return False
 
