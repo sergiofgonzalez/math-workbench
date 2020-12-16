@@ -1,4 +1,4 @@
-from my_vectors import add, scale, subtract, distance
+from my_vectors import add, scale, subtract, distance, cross, dot
 import numpy as np
 
 def standard_form(v1, v2):
@@ -41,6 +41,20 @@ def parametric_form_fn(v1, v2):
 
     return new_function
 
+
+# Added in exercise 7.19
+def plane_equation(p0, p1, p2):
+    """Returns the coefficients a, b, c, d for a plane's equation in
+    its standard form (ax + by + cz = d) given three points p0, p1, p2
+    in the plane
+    """
+    vector_in_the_plane_1 = subtract(p1, p0)
+    vector_in_the_plane_2 = subtract(p2, p0)
+    vector_perpendicular_to_the_plane = cross(vector_in_the_plane_1, vector_in_the_plane_2)
+    a, b, c = vector_perpendicular_to_the_plane
+    d = dot(vector_perpendicular_to_the_plane, p1)
+
+    return a, b, c, d
 
 def intersection(u1, u2, v1, v2):
     """Return the intersection point of the line that goes through
