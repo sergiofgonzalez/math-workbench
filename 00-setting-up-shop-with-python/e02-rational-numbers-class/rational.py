@@ -168,7 +168,12 @@ class Rational():
         return self.power(exponent)
 
     def __repr__(self):
-        return '{}/{}'.format(self.numerator, self.denominator)
+        if self.numerator == 0:
+            return 0
+        elif self.denominator == 1:
+            return self.numerator
+        else:
+            return '{}/{}'.format(self.numerator, self.denominator)
 
     @staticmethod
     def __isValidIntsInts(*nums):
