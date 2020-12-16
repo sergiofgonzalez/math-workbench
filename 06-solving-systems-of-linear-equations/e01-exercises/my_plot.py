@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from my_colors import black
 
-
 def plot(functions, xmin, xmax, title=None):
     xs = np.linspace(xmin, xmax, 100)
     fig, ax = plt.subplots()
@@ -17,11 +16,15 @@ def plot(functions, xmin, xmax, title=None):
     # this line is not required when running in Jupyter notebook environments
     plt.show()
 
-def plot3d(functions, points, xmin, xmax, ymin=None, ymax=None):
-    """Plots a set of functions and points in 3D.
+def plot3d(functions, points, vectors, xmin, xmax, ymin=None, ymax=None):
+    """Plots a set of functions and points and vectors in 3D.
 
     The functions must be given with the z coordinate cleared out in the form:
-    z(x, y) = expression involving x and y
+    z(x, y) = expression involving x and y.
+
+    The vectors can be given as coordinate points when set in the origin as in
+    (3, 3, 3)
+    or as a set of [head, tail] coordinates, for example [(3, 3, 3), (1, 1, 1)].
     """
     if ymin is None:
         ymin = xmin
@@ -44,5 +47,15 @@ def plot3d(functions, points, xmin, xmax, ymin=None, ymax=None):
     for point in points:
         x, y, z = point
         ax.scatter(x, y, z, color=black)
+
+    for vector in vectors:
+        if len(vector) == 3:
+            vector = [vector, (0, 0, 0)]
+
+        vector_head, vector_tail = vector
+        plt.quiver(
+            vector_tail[0], vector_tail[1], vector_tail[2],
+            vector_head[0], vector_head[1], vector_head[2]
+        )
 
     plt.show()
