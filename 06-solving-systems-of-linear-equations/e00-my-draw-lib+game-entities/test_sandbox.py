@@ -1,10 +1,31 @@
-from my_plot import plot3d
-from my_linear_equations import plane_equation
+import numpy as np
+import matplotlib.pyplot as plt
+from my_colors import black
+
+plt3d = plt.figure().gca(projection='3d')
+ax = plt.gca()
+
+x_values = np.arange(-5, 5, 0.5)
+y_values = np.arange(-5, 5, 0.5)
+
+xx, yy = np.meshgrid(x_values, y_values)
 
 
-a, b, c, d = plane_equation((1, 1, 1), (3, 0, 0), (0, 3, 0))
+# plane z = 2
+zz = 2 * np.ones((len(xx),len(xx)), dtype=int)
+plt3d.plot_surface(xx, yy, zz, alpha=0.7)
 
-def z(x, y):
-    return (d - a * x - b * y) / c
+# plane x = 0
+yy, zz = np.meshgrid(x_values, y_values)
+xx = np.zeros((len(xx),len(xx)), dtype=int)
+plt3d.plot_surface(xx, yy, zz, alpha=0.7)
 
-plot3d([z], [(1, 1, 1), (3, 0, 0), (0, 3, 0)], [[(3, 3, 3), (1, 1, 1)]], -5, 5,)
+# intersection between plane z=2 and x=0 is points (0, y, 2)
+yy = np.linspace(-5, 5, 100)
+xx = np.zeros(len(yy))
+zz = 2 * np.ones(len(yy))
+ax.scatter(xx, yy, zz, color=black)
+
+ax = plt.gca()
+
+plt.show()

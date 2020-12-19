@@ -39,6 +39,7 @@ def plot3d(functions, points, vectors, xmin, xmax, ymin=None, ymax=None):
     xx, yy = np.meshgrid(x_values, y_values)
     plt3d = plt.figure().gca(projection='3d')
 
+    # this fails for constant functions, eg. z=2
     for function in functions:
         plt3d.plot_surface(xx, yy, function(xx, yy), alpha=0.7)
 
