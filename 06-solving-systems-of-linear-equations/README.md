@@ -9,14 +9,8 @@ A notebook with all the concepts and examples of the chapter.
 
 ## Exercises and *above and beyond* standalone projects
 
-### [Exercises: Vector Library](./e00-vector-lib)
-A project that includes custom implementation of the most relevant vector spaces of the chapter, along with unit tests suite.
+### [Exercises: Drawing Library and Game Entities](./e00-my-draw-lib+game-entities)
+A project that contains my custom implementations for the drawing library, the game entities, plot support functions, etc.
 
-### [Exercises: Generalizing to higher dimensions](./e01-exercises)
+### [Exercises: Systems of linear equations](./e01-exercises)
 A notebook with the exercises of the concepts section.
-
-### [Exercises: Plot library](./e02-plot-lib)
-A project that includes simple functions to help plotting functions.
-
-### [Exercises: Grayscale Images](./e03-grayscale-images)
-A project that includes some functions that can be used to downscale and convert to grayscale images.
