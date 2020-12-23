@@ -1,9 +1,9 @@
 # 06 &mdash; Solving systems of linear equations
-> finding solutions that satisfy multiple linear equations simultaneously
+> TBD
 
 ## Concepts and standalone projects
 
-### [Concepts: Systems of linear equations](./01-systems-of-linear-equations-concepts-notebook)
+### [Concepts: Understanding rates of change](./01-concepts)
 A notebook with all the concepts and examples of the chapter.
 
 
