@@ -111,3 +111,11 @@ def validate_vectors(*vectors):
         raise TypeError('validate_vectors require vectors with numeric coordinates')
 
 
+# Added in exercise 8.2
+def secant_line(f, x1, x2):
+    """Returns the secant line function for a generic function f
+    that between the points f(x1) and f(x2)
+    """
+    def new_function(x):
+        return ((f(x2) - f(x1))/(x2 - x1)) * x + (x2 * f(x1) - x1 * f(x2))/(x2 - x1)
+    return new_function

@@ -119,3 +119,10 @@ def secant_line(f, x1, x2):
     def new_function(x):
         return ((f(x2) - f(x1))/(x2 - x1)) * x + (x2 * f(x1) - x1 * f(x2))/(x2 - x1)
     return new_function
+
+def average_rate(f, t1, t2):
+    return (f(t2) - f(t1))/(t2 - t1)
+
+def interval_average_rates(f, t1, t2, dt):
+    time_samples = np.arange(t1, t2, dt)
+    return [(t, average_rate(f, t, t + dt)) for t in time_samples]
