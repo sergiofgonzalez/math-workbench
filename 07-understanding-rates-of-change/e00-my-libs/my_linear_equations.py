@@ -121,8 +121,52 @@ def secant_line(f, x1, x2):
     return new_function
 
 def average_rate(f, t1, t2):
+    """Returns the average rate of change for the function f between the points t1 and t2.
+    That is, this function returns the slope of the secant line between f(t1) and f(t2).
+    """
     return (f(t2) - f(t1))/(t2 - t1)
 
+# Added in exercise 8.7, syntactic sugar
+def average_rate_of_change(f, x1, x2):
+    return average_rate(f, x1, x2)
+
 def interval_average_rates(f, t1, t2, dt):
+    """Return a series of samples of the average rate (slope of the tangent) function
+    between t1 and t2, with each step being dt.
+    """
     time_samples = np.arange(t1, t2, dt)
     return [(t, average_rate(f, t, t + dt)) for t in time_samples]
+
+def instantaneous_rate(f, t, digits=6):
+    """Returns the instantaneous rate for f at time=t with digits precision
+     (that is, the derivative of f at time=t with the given precision)
+     Arbitrarily, the convergence will take up to 2*digits iterations on which
+     the time interval will be made smaller by 1/10.
+     If after those iterations, the derivative does not converge to any value,
+     an exception will be raised
+     """
+    tolerance = 10 ** (-digits)
+    h = 1
+    approx = average_rate(f, t - h, t + h)
+    for _ in range(0, 2 * digits):
+        h = h / 10
+        next_approx = average_rate(f, t - h, t + h)
+        if abs(next_approx - approx) < tolerance:
+            return round(next_approx, digits)
+        else:
+            approx = next_approx
+    raise Exception('Derivative did not converge in {} iterations'.format(2 * digits))
+
+# Added in exercise 8.7, syntactic sugar
+def derivative(f, x, digits=6):
+    return instantaneous_rate(f, x, digits)
+
+# Added in exercise 8.7, syntactic sugar
+def instantaneous_rate_of_change(f, x, digits=6):
+    return instantaneous_rate(f, x, digits)
+
+# Added in exercise 8.7
+def derivative_fn(f):
+    def new_function(x):
+        return derivative(f, x)
+    return new_function
