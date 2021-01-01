@@ -16,3 +16,4 @@
 
 ### Part 2: Calculus
 + [07 - Understanding rates of change](./07-understanding-rates-of-change/README.md)
++ [08 - Simulating moving objects](./08-simulating moving/README.md)
