@@ -1,5 +1,5 @@
-# 07 &mdash; Understanding rates of change
-> Derivatives and Integrals
+# 08 &mdash; Simulating Moving Objects
+> Computing trajectories of objects using *Euler's method*
 
 ## Concepts and standalone projects
 
