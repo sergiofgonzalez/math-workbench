@@ -17,4 +17,4 @@
 ### Part 2: Calculus
 + [07 - Understanding rates of change](./07-understanding-rates-of-change/README.md)
 + [08 - Simulating moving objects](./08-simulating-moving-objects/README.md)
-+
++ [09 - Working with symbolic expressions](./09-working-with-symbolic-expressions/README.md)
