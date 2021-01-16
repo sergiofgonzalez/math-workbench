@@ -1,5 +1,6 @@
 # A collection of classes for representing algebraic expressions
 from abc import ABC, abstractmethod
+import math
 
 def to_expression_safe(maybeExpression):
     if isinstance(maybeExpression, Expression):
@@ -35,7 +36,10 @@ class Expression(ABC):
     def __pow__(self, exponent):
         return Power(self, to_expression_safe(exponent))
 
-
+    # added in section 10.2.3
+    @abstractmethod
+    def expand(self):
+        pass
 
 ## Elements
 class Number(Expression):
@@ -44,6 +48,9 @@ class Number(Expression):
 
     def evaluate(self, **bindings):
         return self.number
+
+    def expand(self):
+        return self
 
 class Variable(Expression):
     def __init__(self, symbol):
@@ -55,22 +62,79 @@ class Variable(Expression):
         except:
             raise KeyError('Variable {} is not bound'.format(self.symbol))
 
+    def expand(self):
+        return self
+
 # Combinators
 class Power(Expression):
     def __init__(self, base, exponent):
         self.base = base
         self.exponent = exponent
 
+    def evaluate(self, **bindings):
+        return self.base.evaluate(**bindings) ** self.exponent.evaluate(**bindings)
+
+
 class Product(Expression):
     def __init__(self, expr1, expr2):
         self.expr1 = expr1
         self.expr2 = expr2
 
+    def evaluate(self, **bindings):
+        return self.expr1.evaluate(**bindings) * self.expr2.evaluate(**bindings)
+
+    def expand(self):
+        expanded1 = self.expr1.expand()
+        expanded2 = self.expr2.expand()
+        if isinstance(expanded1, Sum):
+            return Sum(*[Product(expr, expanded2).expand() for expr in expanded1.exprs])
+        elif isinstance(expanded2, Sum):
+            return Sum(*[Product(expanded1, expr) for expr in expanded2.exprs])
+        else:
+            return Product(expanded1, expanded2)
+
+
+
 class Sum(Expression):
     def __init__(self, *exprs):
         self.exprs = exprs
 
-class Function(Expression):
+    def evaluate(self, **bindings):
+        return sum([expr.evaluate(**bindings) for expr in self.exprs])
+
+    def expand(self):
+        return Sum(*[expr.expand() for expr in self.exprs])
+
+# Added in exercise 10.4
+class Quotient(Expression):
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def evaluate(self, **bindings):
+        return self.numerator.evaluate(**bindings) / self.denominator.evaluate(**bindings)
+
+
+# Added in exercise 10.5
+class Difference(Expression):
+    def __init__(self, expr1, expr2):
+        self.expr1 = expr1
+        self.expr2 = expr2
+
+    def evaluate(self, **bindings):
+        return self.expr1.evaluate(**bindings) - self.expr2.evaluate(**bindings)
+
+
+# Added in exercise 10.6
+class Negative(Expression):
+    def __init__(self, expr):
+        self.expr = expr
+
+    def evaluate(self, **bindings):
+        return -self.expr.evaluate(**bindings)
+
+
+class Function():
     def __init__(self, name):
         self.name = name
 
@@ -79,22 +143,19 @@ class Apply(Expression):
         self.function = function
         self.argument = argument
 
-# Added in exercise 10.4
-class Quotient(Expression):
-    def __init__(self, numerator, denominator):
-        self.numerator = numerator
-        self.denominator = denominator
+    def evaluate(self, **bindings):
+        return _function_bindings[self.function.name](self.argument.evaluate(**bindings))
 
-# Added in exercise 10.5
-class Difference(Expression):
-    def __init__(self, expr1, expr2):
-        self.expr1 = expr1
-        self.expr2 = expr2
+    def expand(self):
+        return Apply(self.function, self.argument.expand())
 
-# Added in exercise 10.6
-class Negative(Expression):
-    def __init__(self, expr):
-        self.expr = expr
+
+_function_bindings = {
+    'sin': math.sin,
+    'cos': math.cos,
+    'ln': math.log,
+    'sqrt': math.sqrt
+}
 
 # Added in section 10.2.1
 def distinct_variables(expr):
