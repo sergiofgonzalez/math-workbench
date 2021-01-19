@@ -10,6 +10,18 @@ def to_expression_safe(maybeExpression):
     else:
         raise ValueError('Cannot convert {} to Expression'.format(maybeExpression))
 
+def wrap_in_paren_if_matching(expr, *exprTypes):
+    if isinstance(expr, exprTypes):
+        return '( {} )'.format(expr.latex())
+    else:
+        return expr.latex()
+
+def smart_cdot(expr1, latex):
+    if isinstance(expr1, Number):
+        return latex
+    else:
+        return ' \\cdot {}'.format(latex)
+
 class Expression(ABC):
     @abstractmethod
     def evaluate(self, **bindings):
@@ -46,6 +58,23 @@ class Expression(ABC):
     def __repr__(self):
         pass
 
+    # added in exercise 10.13
+    @abstractmethod
+    def latex(self):
+        pass
+
+    def _repr_latex_(self):
+        return '$$ ' + self.latex() + ' $$'
+
+    # added in exercise 10.14
+    @abstractmethod
+    def _python_expr(self):
+        pass
+
+    def python_function(self, **bindings):
+        global_vars = {'math': math}
+        return eval(self._python_expr(), global_vars, bindings)
+
 ## Elements
 class Number(Expression):
     def __init__(self, number):
@@ -59,6 +88,12 @@ class Number(Expression):
 
     def __repr__(self):
         return 'Number({})'.format(self.number)
+
+    def latex(self):
+        return '{}'.format(self.number)
+
+    def _python_expr(self):
+        return str(self.number)
 
 class Variable(Expression):
     def __init__(self, symbol):
@@ -76,6 +111,12 @@ class Variable(Expression):
     def __repr__(self):
         return 'Variable(\'{}\')'.format(self.symbol)
 
+    def latex(self):
+        return self.symbol
+
+    def _python_expr(self):
+        return self.symbol
+
 # Combinators
 class Power(Expression):
     def __init__(self, base, exponent):
@@ -90,6 +131,12 @@ class Power(Expression):
 
     def __repr__(self):
         return 'Power({}, {})'.format(self.base, self.exponent)
+
+    def latex(self):
+        return self.base.latex() + '^{' + self.exponent.latex() + '}'
+
+    def _python_expr(self):
+        return '({}) ** ({})'.format(self.base._python_expr(), self.exponent._python_expr())
 
 class Product(Expression):
     def __init__(self, expr1, expr2):
@@ -112,6 +159,14 @@ class Product(Expression):
     def __repr__(self):
         return 'Product({}, {})'.format(self.expr1, self.expr2)
 
+    def latex(self):
+
+        return wrap_in_paren_if_matching(self.expr1, Sum, Negative, Difference) + \
+            smart_cdot(self.expr1, wrap_in_paren_if_matching(self.expr2, Sum, Negative, Difference))
+
+    def _python_expr(self):
+        return '({}) * ({})'.format(self.expr1._python_expr(), self.expr2._python_expr())
+
 class Sum(Expression):
     def __init__(self, *exprs):
         self.exprs = exprs
@@ -124,6 +179,12 @@ class Sum(Expression):
 
     def __repr__(self):
         return 'Sum({})'.format(', '.join(['{}'.format(expr) for expr in self.exprs]))
+
+    def latex(self):
+        return ' + '.join([expr.latex() for expr in self.exprs])
+
+    def _python_expr(self):
+        return ' + '.join(['({})'.format(expr._python_expr()) for expr in self.exprs])
 
 # Added in exercise 10.4
 class Quotient(Expression):
@@ -140,6 +201,12 @@ class Quotient(Expression):
     def __repr__(self):
         return 'Quotient({}, {})'.format(self.numerator, self.denominator)
 
+    def latex(self):
+        return '\\frac{' + self.numerator.latex() + '}{' + self.denominator.latex() + '}'
+
+    def _python_expr(self):
+        return '({}) / ({})'.format(self.numerator._python_expr(), self.denominator._python_expr())
+
 # Added in exercise 10.5
 class Difference(Expression):
     def __init__(self, expr1, expr2):
@@ -155,6 +222,12 @@ class Difference(Expression):
     def __repr__(self):
         return 'Difference({}, {})'.format(self.expr1, self.expr2)
 
+    def latex(self):
+        return self.expr1.latex() - self.expr2.latex()
+
+    def _python_expr(self):
+        return '({}) - ({})'.format(self.expr1._python_expr(), self.expr2._python_expr())
+
 # Added in exercise 10.6
 class Negative(Expression):
     def __init__(self, expr):
@@ -169,6 +242,11 @@ class Negative(Expression):
     def __repr__(self):
         return 'Negative({})'.format(self.expr)
 
+    def latex(self):
+        return '-' + self.expr
+
+    def _python_expr(self):
+        return '-({})'.format(self.expr._python_expr())
 
 class Function():
     def __init__(self, name):
@@ -176,6 +254,9 @@ class Function():
 
     def __repr__(self):
         return "Function('{}')".format(self.name)
+
+    def latex(self):
+        return self.name
 
 class Apply(Expression):
     def __init__(self, function, argument):
@@ -191,12 +272,26 @@ class Apply(Expression):
     def __repr__(self):
         return 'Apply({}, {})'.format(self.function, self.argument)
 
+    def latex(self):
+        return self.function.latex() + '(' + self.argument.latex() + ')'
+
+    def _python_expr(self):
+        return _functions_python[self.function.name].format(self.argument._python_expr())
+
 _function_bindings = {
     'sin': math.sin,
     'cos': math.cos,
     'ln': math.log,
     'sqrt': math.sqrt
 }
+
+_functions_python = {
+    'sin': 'math.sin({})',
+    'cos': 'math.cos({})',
+    'ln': 'math.log({})',
+    'sqrt': 'math.sqrt({})'
+}
+
 
 # Added in section 10.2.1
 def distinct_variables(expr):
