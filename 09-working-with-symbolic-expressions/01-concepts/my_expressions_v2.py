@@ -10,6 +10,18 @@ def to_expression_safe(maybeExpression):
     else:
         raise ValueError('Cannot convert {} to Expression'.format(maybeExpression))
 
+def wrap_in_paren_if_matching(expr, *exprTypes):
+    if isinstance(expr, exprTypes):
+        return '( {} )'.format(expr.latex())
+    else:
+        return expr.latex()
+
+def smart_cdot(expr1, latex):
+    if isinstance(expr1, Number):
+        return latex
+    else:
+        return ' \\cdot {}'.format(latex)
+
 class Expression(ABC):
     @abstractmethod
     def evaluate(self, **bindings):
@@ -148,7 +160,9 @@ class Product(Expression):
         return 'Product({}, {})'.format(self.expr1, self.expr2)
 
     def latex(self):
-        return self.expr1.latex() + ' \\cdot ' + self.expr2.latex()
+
+        return wrap_in_paren_if_matching(self.expr1, Sum, Negative, Difference) + \
+            smart_cdot(self.expr1, wrap_in_paren_if_matching(self.expr2, Sum, Negative, Difference))
 
     def _python_expr(self):
         return '({}) * ({})'.format(self.expr1._python_expr(), self.expr2._python_expr())
