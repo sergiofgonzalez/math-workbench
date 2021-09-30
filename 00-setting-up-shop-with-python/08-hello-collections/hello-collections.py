@@ -63,7 +63,7 @@ print(combination)
 multilist_combination = [[m + " " + str(y) for y in years] for m in months] # iterate over months first, then over year
 print(multilist_combination)
 
-# using a nested for in which the range is fixed (this is usefult for iterating over tuple indices)
+# using a nested for in which the range is fixed (this is useful for iterating over tuple indices)
 some_tuples = [(x, i) for x in range(-1, 6) for i in [0, 1]]
 print(some_tuples)
 

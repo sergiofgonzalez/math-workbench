@@ -50,6 +50,19 @@ A Jupyter Notebook is a graphical interface for coding in Python.
 
 To open the Jupyter Notebook interface type `python -m notebook`.
 
+## Configuring Pylance
+If you are using Pylance for linting your code, the tool will be reporting missing imports such as:
+
+![Pylance missing import](images/pylance_missing_import.png)
+
+You can fix this by configuring your user setting with a few additional paths:
+
+Python > Analysis > Extra Paths
+
++ `./lib`   <- for your local libraries
++ `/home/<your-user>/anaconda3/bin`   <- anaconda bin packages
++ `/home/ubuntu/anaconda3/lib/python3.8/site-packages`   <- additional packages
+
 ## FAQs
 
 ### 1. When I type `python --version` I get 2.x.y instead of 3.x.y, how do I fix this?

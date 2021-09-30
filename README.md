@@ -1,5 +1,5 @@
 # Math Workbench
-> Math related examples and notes
+> Math related examples and notes using Python
 
 ## Contents:
 

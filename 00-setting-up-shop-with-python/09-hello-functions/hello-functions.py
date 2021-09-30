@@ -46,17 +46,14 @@ print(birthday(**nephew))
 
 # Also, function can be defined to receive an unstructured dictionary
 def birthday_v2(**kwargs):
-  s = "Happy birthday, %s" % kwargs["name"] if kwargs["name"] else "friend"
-  if kwargs["age"]:
+  s = "Happy birthday, %s" % kwargs["name"] if "name" in kwargs else "friend"
+  if "age" in kwargs:
     s += ", you're %d years old" % kwargs["age"]
   return s + "!"
 
-print(birthday())
-print(birthday("Alex"))
-print(birthday("Alex", 4))
-print(birthday(name="Alex", age=4))
-print(birthday(age=4, name="Alex"))
-print(birthday(age=4))
+print(birthday_v2(name="Alex", age=4))
+print(birthday_v2(age=4, name="Alex"))
+print(birthday_v2(age=4))
 
 
 # Functions are first-class citizens in Python
