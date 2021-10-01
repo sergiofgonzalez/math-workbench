@@ -86,7 +86,7 @@ def draw(*objects, origin=True, axes=True, grid=(1, 1), nice_aspect_ratio=True, 
   # now we zip them and destructure them in two separate lists for x's and y's
   # remember that:
   # all_vectors = [(1, 2), (3, 4)]
-  # zip(*all_vectors)) => [(1, 3), (2, 4)]
+  # zip(*all_vectors) => [(1, 3), (2, 4)]
   # xs, ys = zip(*all_vectors) => xs = (1, 3); ys = (2, 4)
   #
   xs, ys = zip(*all_vectors)
