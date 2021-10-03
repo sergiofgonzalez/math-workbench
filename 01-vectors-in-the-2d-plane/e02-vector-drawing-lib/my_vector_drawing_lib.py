@@ -19,7 +19,7 @@ BLACK = 'k'
 RED = 'C3'
 GREEN = 'C2'
 PURPLE = 'C4'
-ORANGE = 'C2'
+ORANGE = 'C1'
 GRAY = 'gray'
 
 #
